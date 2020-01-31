@@ -1,0 +1,15 @@
+Package: RWcheck
+Type: Package
+Title: Check RiverWare Output Files
+Version: 0.1.0
+Authors@R: person("Sarah", "Baker", email = "sabaker@usbr.gov",
+  role = c("aut", "cre"))
+Description: A basic check of RiverWare model results. It allow users to check 
+    the output of various slots and output errors if logic fails. 
+    It allows users to check the output of slots. 
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr (>= 0.3.0.1)
+RoxygenNote: 7.0.2
