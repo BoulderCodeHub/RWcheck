@@ -10,17 +10,14 @@ read_scenario(data_files)
 \item{data_files}{A vector of data files produced by get_datafiles().}
 }
 \value{
-A dataframe containg RW output organized into
+A dataframe containg RW output with columns as slots and rows
+  with timestep and trace number combination.
 }
 \description{
 The function reads RiverWare data files based on file type.
 }
 \examples{
-read_scenario(c('ReservoirOutput.csv'))
-
-dontshow{
-read_scenario('ReservoirOutput.csv')
-}
+read_scenario(c('ReservoirOutput.csv', UBRes.rdf))
 
 dontrun{
 read_scenario(c('badtype.txt'))

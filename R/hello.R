@@ -27,9 +27,10 @@ hello <- function() {
 #
 
 # always access packages ::
-#' roxygen
-#' devtools::document
-#' usethis::use_testthat() #setup testing
+#' devtools::document()
+#' usethis::use_testthat() # setup testing (only once)
+#' devtools::test()        # runs all tests
+#' usethis::use_test()     # set indiv testing file for function
 #' test/testthat create testing files
 #'
 #' assertthat::assert_that() - test user input, character, lenght...
