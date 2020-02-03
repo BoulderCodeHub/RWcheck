@@ -3,31 +3,38 @@
 #' Add a description of the function here.
 #'
 #' @param yaml_files A vector of yaml files.
+#' @param yaml_dir Directory where yaml files are located.
 #' @return A vector of data files.
 #' @examples
-#' get_datafiles(c('check_lb_res.yaml', 'check_ub_outflow.yaml'))
+#' get_datafiles(c('check_lb_res.yaml', 'check_ub_outflow.yaml'), yaml_dir)
 #'
 #' dontrun{
-#' get_datafiles(c('badyaml.txt'))
+#' get_datafiles(c('badyaml.txt'), yaml_dir)
 #' }
 
-get_datafiles <- function(yaml_files) {
+get_datafiles <- function(yaml_files, yaml_dir) {
 
   data_files <- NULL
   for (yaml_i in yaml_files) { # multiple yaml files possible as an input
+
+    # get file with path
+    yaml_i <- paste0(yaml_dir, "/", yaml_i)
 
     # check that input file name is a yaml file
     if (tools::file_ext(yaml_i) != "yaml") {
       stop("input must be a yaml rule file")
     }
 
+    # check if yaml_dir exists
+    dir_error(yaml_dir)
+
     # read all in_file in single yaml file
     fl_i <- yaml::yaml.load_file(yaml_i)
     for (j in seq_len(length(fl_i$rules))) {
 
       # check that yaml file has correct rule structure
-      rule_j = fl_i$rules[[j]]
-      if ( !(all(c('expr', "name", "in_file") %in% names(rule_j))) ) {
+      rule_j <- fl_i$rules[[j]]
+      if (!(all(c("expr", "name", "in_file") %in% names(rule_j)))) {
         stop("yaml file rules must define: expr, name, in_file")
       }
 

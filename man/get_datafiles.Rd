@@ -4,10 +4,12 @@
 \alias{get_datafiles}
 \title{Get all data files used in yaml rules}
 \usage{
-get_datafiles(yaml_files)
+get_datafiles(yaml_files, yaml_dir)
 }
 \arguments{
 \item{yaml_files}{A vector of yaml files.}
+
+\item{yaml_dir}{Directory where yaml files are located.}
 }
 \value{
 A vector of data files.
@@ -16,9 +18,9 @@ A vector of data files.
 Add a description of the function here.
 }
 \examples{
-get_datafiles(c('check_lb_res.yaml', 'check_ub_outflow.yaml'))
+get_datafiles(c('check_lb_res.yaml', 'check_ub_outflow.yaml'), yaml_dir)
 
 dontrun{
-get_datafiles(c('badyaml.txt'))
+get_datafiles(c('badyaml.txt'), yaml_dir)
 }
 }

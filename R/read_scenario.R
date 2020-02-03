@@ -29,11 +29,11 @@ read_scenario <- function(data_files) {
       stop("data must be in a csv or rdf file.")
     }
 
+    df_j <- dplyr::select(df_j, Timestep, TraceNumber, ObjectSlot, Value)
     df <- rbind(df, df_j)
   }
 
   # select important columns and spread data
-  df <- dplyr::select(df, Timestep, TraceNumber, ObjectSlot, Value)
   df <- tidyr::spread(df, ObjectSlot, Value)
 
   return(df)
