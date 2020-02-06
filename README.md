@@ -5,6 +5,10 @@ Code relies on [RWDataPlyr](https://github.com/BoulderCodeHub/RWDataPlyr)
 and the following packages available on CRAN:
 * devtools
 * dplyr
+* validate
+* tools
+* yaml
+* tidyr
 
 Ensure the above packages are installed on the computer. RWDataPlyr and CRSSIO can be installed as follows:
 ```
