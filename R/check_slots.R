@@ -5,7 +5,7 @@
 #' This function was created to be run within RiverWare using the
 #' Rplugin event with the available predefined arguments.
 #'
-#' The function needs the base directory of the scenarios, \code{scenario_dir},
+#' The function needs the base directory of the scenarios,
 #' which is normally automatically output when running RiverWare models in
 #' RiverSMART. The \code{scenario_dir} contains subdirectories,
 #' each representing an individual scenario. These individual scenario
@@ -33,7 +33,10 @@
 #' scenario_dir <- "C:/User/Project/Scenario/"
 #' output_dir <- "C:/User/Project/ScenarioSet/allScenarios/basicChecks"
 #' yaml_dir <- "C:/User/Project/Code/"
+#'
+#' \dontrun{
 #' check_slots(scenarios, yaml_rule_files, scenario_dir, output_dir, yaml_dir)
+#' }
 #'
 #' @export
 
@@ -54,7 +57,7 @@ check_slots <- function(scenarios,
   log_fl <- file(log_nm, open = "w")
 
   # read yamls to check for data files to read
-  data_files <- RWcheck:::get_datafiles(yaml_rule_files, yaml_dir)
+  data_files <- get_datafiles(yaml_rule_files, yaml_dir)
 
   # loop through scenarios and process with yaml rules
   out_summ <- summ_err <- NULL
@@ -63,7 +66,7 @@ check_slots <- function(scenarios,
 
     # read and append all data_files based on file type
     data_files_path <- paste0(scenario_dir, "/", scenario_i, "/", data_files)
-    df <- RWcheck:::read_scenario(data_files_path)
+    df <- read_scenario(data_files_path)
 
     # loop through yaml rule files and collect summary output
     scen_err <- NULL
@@ -116,7 +119,7 @@ check_slots <- function(scenarios,
   }
 
   # write output to text file
-  write.table(out_summ, paste0(output_dir, "\\", out_fl_nm, ".txt"),
+  utils::write.table(out_summ, paste0(output_dir, "\\", out_fl_nm, ".txt"),
               sep = "\t", row.names = FALSE)
   close(log_fl)
 

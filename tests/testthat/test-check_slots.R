@@ -18,6 +18,7 @@ test_that("no errors and function runs correctly", {
                NA)
 
   # read log file and check
+  log_nm <- paste0(output_dir, "\\log_file.txt")
   fConn <- file(log_nm, "r")
   log_lines <- readLines(fConn)
 

@@ -7,10 +7,8 @@
 #' @param yaml_dir Directory where yaml files are located.
 #' @return A vector of data files.
 #' @examples
+#' \dontrun{
 #' get_datafiles(c('check_lb_res.yaml', 'check_ub_outflow.yaml'), yaml_dir)
-#'
-#' dontrun{
-#' get_datafiles(c('badyaml.txt'), yaml_dir)
 #' }
 
 get_datafiles <- function(yaml_files, yaml_dir) {

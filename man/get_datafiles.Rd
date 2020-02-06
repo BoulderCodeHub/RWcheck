@@ -19,9 +19,7 @@ This function looks into the yaml rules to gets all RiverWare output
 files necessary based on the `in_file` listed in the yaml rules.
 }
 \examples{
+\dontrun{
 get_datafiles(c('check_lb_res.yaml', 'check_ub_outflow.yaml'), yaml_dir)
-
-dontrun{
-get_datafiles(c('badyaml.txt'), yaml_dir)
 }
 }

@@ -9,6 +9,7 @@ and the following packages available on CRAN:
 * tools
 * yaml
 * tidyr
+* utils
 
 Ensure the above packages are installed on the computer. RWDataPlyr and CRSSIO can be installed as follows:
 ```

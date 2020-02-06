@@ -39,7 +39,7 @@ This function was created to be run within RiverWare using the
 Rplugin event with the available predefined arguments.
 }
 \details{
-The function needs the base directory of the scenarios, \code{scenario_dir},
+The function needs the base directory of the scenarios,
 which is normally automatically output when running RiverWare models in
 RiverSMART. The \code{scenario_dir} contains subdirectories,
 each representing an individual scenario. These individual scenario
@@ -55,6 +55,9 @@ yaml_rule_files <- c("check_lb_res.yaml", "check_ub_outflow.yaml")
 scenario_dir <- "C:/User/Project/Scenario/"
 output_dir <- "C:/User/Project/ScenarioSet/allScenarios/basicChecks"
 yaml_dir <- "C:/User/Project/Code/"
+
+\dontrun{
 check_slots(scenarios, yaml_rule_files, scenario_dir, output_dir, yaml_dir)
+}
 
 }

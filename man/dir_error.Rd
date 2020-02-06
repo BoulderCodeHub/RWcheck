@@ -16,5 +16,7 @@ Error if directory does not exist.
 Checks if directory exists and errors if it doesnt.
 }
 \examples{
+\dontrun{
 dir_error("C:/User/Project/")
+}
 }

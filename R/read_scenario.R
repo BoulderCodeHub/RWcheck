@@ -7,10 +7,9 @@
 #' @return A dataframe containg RW output with columns as slots and rows
 #'   with timestep and trace number combination.
 #' @examples
-#' read_scenario(c('ReservoirOutput.csv', UBRes.rdf))
 #'
-#' dontrun{
-#' read_scenario(c('badtype.txt'))
+#' \dontrun{
+#' read_scenario(c('ReservoirOutput.csv', UBRes.rdf))
 #' }
 #'
 

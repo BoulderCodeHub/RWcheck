@@ -18,10 +18,9 @@ The function reads RiverWare output based on file type and binds
 data together if there are multiple \code{data_files}.
 }
 \examples{
-read_scenario(c('ReservoirOutput.csv', UBRes.rdf))
 
-dontrun{
-read_scenario(c('badtype.txt'))
+\dontrun{
+read_scenario(c('ReservoirOutput.csv', UBRes.rdf))
 }
 
 }
