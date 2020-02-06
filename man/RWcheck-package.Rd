@@ -6,9 +6,9 @@
 \alias{RWcheck-package}
 \title{RWcheck: Check RiverWare Output Files}
 \description{
-A basic check of RiverWare model results. It allow users to check 
-    the output of various slots and output errors if logic fails. 
-    It allows users to check the output of slots.
+Provides a basic check of RiverWare model results. It allow 
+    users to check the output of various slots with logic, which outputs 
+    an error when it fails.
 }
 \author{
 \strong{Maintainer}: Sarah Baker \email{sabaker@usbr.gov}

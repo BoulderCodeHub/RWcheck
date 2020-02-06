@@ -1,17 +1,31 @@
 #' Checks slots with yaml rules
 #'
-#' Add a description of the function here.
+#' `check_slots()` takes RiverWare output (csv or rdf) and uses logic
+#' written in yaml rule(s) to check the RiverWare output for errors.
+#' This function was created to be run within RiverWare using the
+#' Rplugin event with the available predefined arguments.
 #'
-#' @param scenario_dir Directory where scenarios are stored.
-#' @param output_dir Directory where summary and log files are saved.
-#' @param yaml_dir Directory where yaml files are stored.
-#' @param scenarios A vector of folder names inside the scenario_dir,
+#' The function needs the base directory of the scenarios, \code{scenario_dir},
+#' which is normally automatically output when running RiverWare models in
+#' RiverSMART. The \code{scenario_dir} contains subdirectories,
+#' each representing an individual scenario. These individual scenario
+#' directories are input to this function as a character vector,
+#' \code{scenarios}. The other directories necessary in this function are the
+#' location of the yaml file(s) \code{yaml_dir}, and desired output
+#' directory, \code{output_dir}.
+#'
+#' @param scenarios A character vector of folder names inside the scenario_dir,
 #'   which stores the scenario output.
 #' @param yaml_rule_files A vector of yaml files.
 #' @param out_fl_nm The name of the output files, default to
 #'   verification_output.
-#' @return Writes pass and fails to summary verification file and outputs
+#' @param scenario_dir Directory where scenarios are stored.
+#' @param output_dir Directory where summary and log files are saved.
+#' @param yaml_dir Directory where yaml files are stored.
+#'
+#' @return Writes passes and fails to summary verification file and outputs
 #'   details to log_file.txt.
+#'
 #' @examples
 #' scenarios <- c("MRM_Avg,ModelBase,RulesBase,Run-2019-10",
 #'   "MRM_Avg,ModelBase,RulesBase,Run-2019-11")

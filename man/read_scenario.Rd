@@ -14,7 +14,8 @@ A dataframe containg RW output with columns as slots and rows
   with timestep and trace number combination.
 }
 \description{
-The function reads RiverWare data files based on file type.
+The function reads RiverWare output based on file type and binds
+data together if there are multiple \code{data_files}.
 }
 \examples{
 read_scenario(c('ReservoirOutput.csv', UBRes.rdf))

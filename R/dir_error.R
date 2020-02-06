@@ -1,6 +1,6 @@
 #' Check that directory exists
 #'
-#' Checks if directory exists and errors if it doesnt
+#' Checks if directory exists and errors if it doesnt.
 #'
 #' @param dir_check Directory.
 #' @return Error if directory does not exist.

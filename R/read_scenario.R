@@ -1,6 +1,7 @@
 #' Read and append all data_files based on file type
 #'
-#' The function reads RiverWare data files based on file type.
+#' The function reads RiverWare output based on file type and binds
+#' data together if there are multiple \code{data_files}.
 #'
 #' @param data_files A vector of data files produced by get_datafiles().
 #' @return A dataframe containg RW output with columns as slots and rows

@@ -1,6 +1,7 @@
 #' Get all data files used in yaml rules
 #'
-#' Add a description of the function here.
+#' This function looks into the yaml rules to gets all RiverWare output
+#' files necessary based on the `in_file` listed in the yaml rules.
 #'
 #' @param yaml_files A vector of yaml files.
 #' @param yaml_dir Directory where yaml files are located.

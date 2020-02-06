@@ -13,7 +13,7 @@ dir_error(dir_check)
 Error if directory does not exist.
 }
 \description{
-Checks if directory exists and errors if it doesnt
+Checks if directory exists and errors if it doesnt.
 }
 \examples{
 dir_error("C:/User/Project/")

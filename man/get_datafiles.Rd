@@ -15,7 +15,8 @@ get_datafiles(yaml_files, yaml_dir)
 A vector of data files.
 }
 \description{
-Add a description of the function here.
+This function looks into the yaml rules to gets all RiverWare output
+files necessary based on the `in_file` listed in the yaml rules.
 }
 \examples{
 get_datafiles(c('check_lb_res.yaml', 'check_ub_outflow.yaml'), yaml_dir)
