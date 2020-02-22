@@ -12,6 +12,7 @@
 #' read_scenario(c('ReservoirOutput.csv', UBRes.rdf))
 #' }
 #'
+#' @noRd
 
 read_scenario <- function(data_files) {
 
