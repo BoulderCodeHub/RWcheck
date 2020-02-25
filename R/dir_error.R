@@ -8,6 +8,7 @@
 #' \dontrun{
 #' dir_error("C:/User/Project/")
 #' }
+#' @noRd
 
 dir_error <- function(dir_check) {
   if (!dir.exists(dir_check)) {

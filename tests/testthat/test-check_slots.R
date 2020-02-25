@@ -10,11 +10,11 @@ yaml_rule_files <- c("check_lb_res.yaml", "check_ub_outflow.yaml")
 
 
 test_that("no errors and function runs correctly", {
-  expect_error(RWcheck:::check_slots(scenarios,
-                                     yaml_rule_files,
-                                     scenario_dir,
-                                     output_dir,
-                                     yaml_dir),
+  expect_error(check_slots(scenarios,
+                           yaml_rule_files,
+                           scenario_dir,
+                           output_dir,
+                           yaml_dir),
                NA)
 
   # read log file and check
@@ -37,11 +37,11 @@ test_that("no errors and function runs correctly", {
 
 
 test_that("errors from bad wd", {
-  expect_error(RWcheck:::check_slots(scenarios,
-                                     yaml_rule_files,
-                                     scenario_dir,
-                                     "C:/User/Bad",
-                                     yaml_dir))
+  expect_error(check_slots(scenarios,
+                           yaml_rule_files,
+                           scenario_dir,
+                           "C:/User/Bad",
+                           yaml_dir))
 })
 
 #what happens with NA in files

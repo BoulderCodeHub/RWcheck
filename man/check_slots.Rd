@@ -30,10 +30,10 @@ verification_output.}
 }
 \value{
 Writes passes and fails to summary verification file and outputs
-  details to log_file.txt.
+details to log_file.txt.
 }
 \description{
-`check_slots()` takes RiverWare output (csv or rdf) and uses logic
+\code{check_slots()} takes RiverWare output (csv or rdf) and uses logic
 written in yaml rule(s) to check the RiverWare output for errors.
 This function was created to be run within RiverWare using the
 Rplugin event with the available predefined arguments.

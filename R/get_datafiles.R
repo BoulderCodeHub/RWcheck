@@ -10,6 +10,7 @@
 #' \dontrun{
 #' get_datafiles(c('check_lb_res.yaml', 'check_ub_outflow.yaml'), yaml_dir)
 #' }
+#' @noRd
 
 get_datafiles <- function(yaml_files, yaml_dir) {
 
@@ -17,7 +18,7 @@ get_datafiles <- function(yaml_files, yaml_dir) {
   for (yaml_i in yaml_files) { # multiple yaml files possible as an input
 
     # get file with path
-    yaml_i <- paste0(yaml_dir, "/", yaml_i)
+    yaml_i <- file.path(yaml_dir, yaml_i)
 
     # check that input file name is a yaml file
     if (tools::file_ext(yaml_i) != "yaml") {
