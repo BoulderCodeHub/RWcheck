@@ -1,4 +1,4 @@
-context("check that check_slots() works as intended")
+context("check that check_rw_output() works as intended")
 
 # Set up function inputs
 base_dir <- dirname(getwd())
@@ -10,7 +10,7 @@ yaml_rule_files <- c("check_lb_res.yaml", "check_ub_outflow.yaml")
 
 
 test_that("no errors and function runs correctly", {
-  expect_error(check_slots(scenarios,
+  expect_error(check_rw_output(scenarios,
                            yaml_rule_files,
                            scenario_dir,
                            output_dir,
@@ -37,7 +37,7 @@ test_that("no errors and function runs correctly", {
 
 
 test_that("errors from bad wd", {
-  expect_error(check_slots(scenarios,
+  expect_error(check_rw_output(scenarios,
                            yaml_rule_files,
                            scenario_dir,
                            "C:/User/Bad",
@@ -46,7 +46,7 @@ test_that("errors from bad wd", {
 
 #what happens with NA in files
 
-# RWcheck:::check_slots(scenarios,
+# RWcheck:::check_rw_output(scenarios,
 #                       yaml_rule_files,
 #                       scenario_dir,
 #                       output_dir,

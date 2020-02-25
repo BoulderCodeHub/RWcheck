@@ -1,6 +1,6 @@
 #' Checks slots with yaml rules
 #'
-#' `check_slots()` takes RiverWare output (csv or rdf) and uses logic
+#' `check_rw_output()` takes RiverWare output (csv or rdf) and uses logic
 #' written in yaml rule(s) to check the RiverWare output for errors.
 #' This function was created to be run within RiverWare using the
 #' Rplugin event with the available predefined arguments.
@@ -35,14 +35,14 @@
 #' yaml_dir <- "C:/User/Project/Code/"
 #'
 #' \dontrun{
-#' check_slots(scenarios, yaml_rule_files, scenario_dir, output_dir, yaml_dir)
+#' check_rw_output(scenarios, yaml_rule_files, scenario_dir, output_dir, yaml_dir)
 #' }
 #'
 #' @export
 
 
 ## -- Function
-check_slots <- function(scenarios,
+check_rw_output <- function(scenarios,
                         yaml_rule_files,
                         scenario_dir,
                         output_dir,
