@@ -1,10 +1,5 @@
-0 / 2 scenarios passed all tests
+0 / 0 scenarios passed all tests
+
+0 / 0 scenarios passed all tests
 
 Scenario - RS_scenario1
-  ... all passes in check_lb_res.yaml
-  ... fails in check_ub_outflow.yaml
-  ***      MorrowPoint.Outflow failed in 64 timesteps      ***
-Scenario - RS_scenario2
-  ... all passes in check_lb_res.yaml
-  ... fails in check_ub_outflow.yaml
-  ***      MorrowPoint.Outflow failed in 64 timesteps      ***

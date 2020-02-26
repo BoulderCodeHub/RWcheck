@@ -34,6 +34,9 @@ read_scenario <- function(data_files) {
     df <- rbind(df, df_j)
   }
 
+  # remove spaces ObjectSlot names
+  df$ObjectSlot <- stringr::str_replace_all(df$ObjectSlot, pattern=" ", repl="")
+
   # select important columns and spread data
   df <- tidyr::spread(df, ObjectSlot, Value)
 

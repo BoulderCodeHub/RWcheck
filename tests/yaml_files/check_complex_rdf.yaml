@@ -1,0 +1,16 @@
+# check ub res outflow >= 0
+rules:
+-
+  expr: Mead.PoolElevation > 0
+  name: Mead.PoolElevation
+  label: Mead PE
+  description: |
+    Mead PE should never be NA
+  in_file: ReservoirOutput.csv
+-
+  expr: '!isNA(SummaryOutputData.EqualizationAbove823)'
+  name: EqualizationAbove823
+  label: Equalization Above 823
+  description: |
+    Equalization ABove 823 should never be NA
+  in_file: UBRes.rdf

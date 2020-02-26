@@ -1,13 +1,13 @@
 context("check that read_scenario() works as intended")
 
 # test data
-base_dir <- paste0(dirname(getwd()), "/Scenarios/RS_scenario1/")
-df_rdf <- RWcheck:::read_scenario(paste0(base_dir, "UBRes.rdf"))
-df_csv <- RWcheck:::read_scenario(paste0(base_dir, "ReservoirOutput.csv"))
+base_dir <- file.path(dirname(getwd()), "Scenarios/RS_scenario1/")
+df_rdf <- RWcheck:::read_scenario(file.path(base_dir, "UBRes.rdf"))
+df_csv <- RWcheck:::read_scenario(file.path(base_dir, "ReservoirOutput.csv"))
 
 
 test_that("error occurs if not csv or rdf files", {
-  expect_error(read_scenario(paste0(base_dir, "noData.txt")))
+  expect_error(read_scenario(file.path(base_dir, "noData.txt")))
 })
 
 test_that("check colnames and number", {

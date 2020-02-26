@@ -53,7 +53,7 @@ check_rw_output <- function(scenarios,
   dir_error(scenario_dir); dir_error(output_dir); dir_error(yaml_dir)
 
   # open log file
-  log_nm <- paste0(output_dir, "\\log_file.txt")
+  log_nm <- file.path(output_dir, "log_file.txt")
   log_fl <- file(log_nm, open = "w")
 
   # read yamls to check for data files to read
@@ -65,13 +65,13 @@ check_rw_output <- function(scenarios,
     cat(paste("Scenario -", scenario_i), file = log_fl, sep = "\n")
 
     # read and append all data_files based on file type
-    data_files_path <- paste0(scenario_dir, "/", scenario_i, "/", data_files)
+    data_files_path <- file.path(scenario_dir, scenario_i, data_files)
     df <- read_scenario(data_files_path)
 
     # loop through yaml rule files and collect summary output
     scen_err <- NULL
     for (yaml_i in yaml_rule_files) {
-      yaml_i <- paste0(yaml_dir, "/", yaml_i)
+       yaml_i <- file.path(yaml_dir, yaml_i)
 
       # process yaml rule with scenario output
       rules_j <- validate::validator(.file = yaml_i)
