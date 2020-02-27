@@ -55,6 +55,7 @@ check_rw_output <- function(scenarios,
   # open log file
   log_nm <- file.path(output_dir, "log_file.txt")
   log_fl <- file(log_nm, open = "w")
+  on.exit(close(log_fl))
 
   # read yamls to check for data files to read
   data_files <- get_datafiles(yaml_rule_files, yaml_dir)
@@ -121,4 +122,7 @@ check_rw_output <- function(scenarios,
                      nerrors, "/", nscen, "scenarios produced errors\n----------------------------------------------\n"),
                Lines), con = fConn)
   close(fConn)
+
+  # return invisible of out_summ
+  invisible(out_summ)
 }
