@@ -26,8 +26,8 @@ test_that("yaml reads two files names", {
 })
 
 test_that("yaml reads two files names in same yaml", {
-  yam_ls <- RWcheck:::get_datafiles("check_complex_rdf.yaml",
+  yam_ls <- RWcheck:::get_datafiles("check_complex.yaml",
                                     yaml_dir)
 
-  expect_length(yam_ls, 2)
+  expect_length(yam_ls, 1)
 })

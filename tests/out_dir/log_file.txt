@@ -1,20 +1,18 @@
 Summary of results by scenario and yaml file:
 ----------------------------------------------
- 18 / 22 scenarios passed all tests
- 2 / 22 scenarios produced errors
+ 6 / 10 scenarios passed all tests
+ 2 / 10 scenarios produced errors
 ----------------------------------------------
 
 Scenario - RS_scenario1
-  check_complex_rdf.yaml ... resulted in 2 / 3 passes
-    ***   Fail: Powell.Outflow failed in 9408 timesteps
+  check_complex.yaml ... resulted in 2 / 3 passes
+    ***   Fail: Mead.Pool Elevation failed in 51 timesteps
     ***   Error: object 'SummaryOutputData.EqualizationAbove823' not found
-  check_lb_res.yaml ... all passes
-  check_ub_outflow.yaml ... resulted in 1 / 2 passes
-    ***   Fail: MorrowPoint.Outflow failed in 64 timesteps
+  check_lb_res.yaml ... resulted in 1 / 2 passes
+    ***   Fail: Mohave.Storage failed in 210 timesteps
 Scenario - RS_scenario2
-  check_complex_rdf.yaml ... resulted in 2 / 3 passes
-    ***   Fail: Powell.Outflow failed in 9408 timesteps
+  check_complex.yaml ... resulted in 2 / 3 passes
+    ***   Fail: Mead.Pool Elevation failed in 51 timesteps
     ***   Error: object 'SummaryOutputData.EqualizationAbove823' not found
-  check_lb_res.yaml ... all passes
-  check_ub_outflow.yaml ... resulted in 1 / 2 passes
-    ***   Fail: MorrowPoint.Outflow failed in 64 timesteps
+  check_lb_res.yaml ... resulted in 1 / 2 passes
+    ***   Fail: Mohave.Storage failed in 210 timesteps

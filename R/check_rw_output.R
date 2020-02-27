@@ -52,10 +52,9 @@ check_rw_output <- function(scenarios,
   # check directories exist
   dir_error(scenario_dir); dir_error(output_dir); dir_error(yaml_dir)
 
-  # open log file
+  # log file info
   log_nm <- file.path(output_dir, "log_file.txt")
-  log_fl <- file(log_nm, open = "w")
-  on.exit(close(log_fl))
+  log_fl_towrite = c()
 
   # read yamls to check for data files to read
   data_files <- get_datafiles(yaml_rule_files, yaml_dir)
@@ -63,7 +62,8 @@ check_rw_output <- function(scenarios,
   # loop through scenarios and process with yaml rules
   out_summ <- summ_err <- NULL
   for (scenario_i in scenarios) {
-    cat(paste("Scenario -", scenario_i), file = log_fl, sep = "\n")
+    log_fl_towrite = paste(log_fl_towrite,
+                           paste("Scenario -", scenario_i), sep = "\n")
 
     # read and append all data_files based on file type
     data_files_path <- file.path(scenario_dir, scenario_i, data_files)
@@ -80,28 +80,35 @@ check_rw_output <- function(scenarios,
 
       # print fails or passes
       if (max(vv_sum$fails) > 0) {
-        # check for fails/passes
+
         n_fail <- which(vv_sum$fails > 0)
         n_passOnly <- seq(nrow(vv_sum))[-n_fail]
 
-        cat(paste(" ", yaml_i, "... resulted in", length(n_passOnly),
-                  "/", nrow(vv_sum), "passes"), file = log_fl, sep = "\n")
-        cat(paste("    ***   Fail:", vv_sum[n_fail, 1], "failed in", vv_sum[n_fail, 4],
-                  "timesteps"), file = log_fl, sep = "\n")
+        log_fl_towrite =
+          paste(log_fl_towrite,
+                paste(" ", yaml_i, "... resulted in", length(n_passOnly),
+                      "/", nrow(vv_sum), "passes"), sep = "\n")
+        log_fl_towrite =
+          paste(log_fl_towrite,
+                paste("    ***   Fail:", vv_sum[n_fail, 1], "failed in",
+                      vv_sum[n_fail, 4], "timesteps"), sep = "\n")
+
       } else {
-        cat(paste(" ", yaml_i, "... all passes"), file = log_fl, sep = "\n")
+        log_fl_towrite = paste(log_fl_towrite,
+                               paste(" ", yaml_i, "... all passes"), sep = "\n")
       }
 
       # print error
       if (length(validate::errors(vv)) > 0) {
-        # cat(paste("      errors in", yaml_i), file = log_fl, sep = "\n")
-        cat(paste("    ***   Error:", unlist(validate::errors(vv))),
-            file = log_fl, sep = "\n")
+
+        log_fl_towrite = paste(
+          log_fl_towrite,
+          paste("    ***   Error:", unlist(validate::errors(vv))), sep = "\n")
       }
 
       # collect summary of rule output
-      out_summ_i <- dplyr::select(vv_sum,
-                                   name, passes, fails, error, warning, expression)
+      out_summ_i <- dplyr::select(
+        vv_sum, name, passes, fails, error, warning, expression)
       out_summ <- rbind(out_summ, cbind(scenario_i, yaml_i, out_summ_i))
     }
   }
@@ -109,19 +116,22 @@ check_rw_output <- function(scenarios,
   # write output to text file
   utils::write.table(out_summ, paste0(output_dir, "\\", out_fl_nm, ".txt"),
               sep = "\t", row.names = FALSE)
-  close(log_fl)
 
   # add summary to beginning of log file
   nscen <- nrow(out_summ)
   npass <- nscen - length(which(out_summ$fails > 0))
   nerrors <- sum(out_summ$error, na.rm = TRUE)
-  fConn <- file(log_nm, "r+")
-  Lines <- readLines(fConn)
-  writeLines(c(paste("Summary of results by scenario and yaml file:\n----------------------------------------------\n",
-                     npass, "/", nscen, "scenarios passed all tests\n",
-                     nerrors, "/", nscen, "scenarios produced errors\n----------------------------------------------\n"),
-               Lines), con = fConn)
-  close(fConn)
+
+  log_fl_towrite =
+    paste(paste("Summary of results by scenario and yaml file:\n----------------------------------------------\n",
+                npass, "/", nscen, "scenarios passed all tests\n",
+                nerrors, "/", nscen, "scenarios produced errors\n----------------------------------------------"),
+          log_fl_towrite, sep = "\n")
+
+  # open and write to log file
+  log_fl <- file(log_nm, open = "w")
+  writeLines(log_fl_towrite, con = log_fl)
+  on.exit(close(log_fl))
 
   # return invisible of out_summ
   invisible(out_summ)
