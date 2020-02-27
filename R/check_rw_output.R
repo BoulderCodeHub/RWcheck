@@ -69,52 +69,39 @@ check_rw_output <- function(scenarios,
     df <- read_scenario(data_files_path)
 
     # loop through yaml rule files and collect summary output
-    scen_err <- NULL
     for (yaml_i in yaml_rule_files) {
-       yaml_i <- file.path(yaml_dir, yaml_i)
+       yaml_path_i <- file.path(yaml_dir, yaml_i)
 
       # process yaml rule with scenario output
-      rules_j <- validate::validator(.file = yaml_i)
+      rules_j <- validate::validator(.file = yaml_path_i)
       vv <- validate::confront(as.data.frame(df), rules_j)
       vv_sum <- validate::summary(vv)
 
-      # print errors/fails or passes
-      yaml_rules <- dplyr::last(unlist(strsplit(yaml_i, "/", fixed = TRUE)))
-      if (length(validate::errors(vv)) > 0) {
-        cat(paste("  ... errors in", yaml_rules), file = log_fl, sep = "\n")
-        cat(validate::errors(vv), file = log_fl, sep = "\n")
-        scen_err <- c(scen_err, 1)
-      } else if (max(vv_sum$fails) > 0) {
-        # check for fails
+      # print fails or passes
+      if (max(vv_sum$fails) > 0) {
+        # check for fails/passes
         n_fail <- which(vv_sum$fails > 0)
-        n_fail <- vv_sum[n_fail, c(1, 4)]
-        cat(paste("  ... fails in", yaml_rules), file = log_fl, sep = "\n")
-        cat(paste("  ***     ", n_fail[1], "failed in", n_fail[2],
-                  "timesteps      ***"), file = log_fl, sep = "\n")
-        scen_err <- c(scen_err, 1)
+        n_passOnly <- seq(nrow(vv_sum))[-n_fail]
+
+        cat(paste(" ", yaml_i, "... resulted in", length(n_passOnly),
+                  "/", nrow(vv_sum), "passes"), file = log_fl, sep = "\n")
+        cat(paste("    ***   Fail:", vv_sum[n_fail, 1], "failed in", vv_sum[n_fail, 4],
+                  "timesteps"), file = log_fl, sep = "\n")
       } else {
-        cat(paste("  ... all passes in", yaml_rules), file = log_fl, sep = "\n")
-        scen_err <- c(scen_err, 0)
+        cat(paste(" ", yaml_i, "... all passes"), file = log_fl, sep = "\n")
+      }
+
+      # print error
+      if (length(validate::errors(vv)) > 0) {
+        # cat(paste("      errors in", yaml_i), file = log_fl, sep = "\n")
+        cat(paste("    ***   Error:", unlist(validate::errors(vv))),
+            file = log_fl, sep = "\n")
       }
 
       # collect summary of rule output
       out_summ_i <- dplyr::select(vv_sum,
                                    name, passes, fails, error, warning, expression)
-      out_summ <- rbind(out_summ, cbind(scenario_i, out_summ_i))
-
-      # out_summ_i <- rbind(out_summ_i, vv_sum)
-    }
-
-    # add scenario name and combine
-    out_summ_i2 <- dplyr::select(out_summ_i,
-                                name, passes, fails, error, warning, expression)
-    out_summ <- rbind(out_summ, cbind(scenario_i, out_summ_i))
-
-    # check if scenario produced errors
-    if (sum(scen_err) > 0) {
-      summ_err <- c(summ_err, 1)
-      } else {
-      summ_err <- c(summ_err, 0)
+      out_summ <- rbind(out_summ, cbind(scenario_i, yaml_i, out_summ_i))
     }
   }
 
@@ -124,11 +111,14 @@ check_rw_output <- function(scenarios,
   close(log_fl)
 
   # add summary to beginning of log file
-  nscen <- length(summ_err)
-  npass <- nscen - sum(summ_err)
+  nscen <- nrow(out_summ)
+  npass <- nscen - length(which(out_summ$fails > 0))
+  nerrors <- sum(out_summ$error, na.rm = TRUE)
   fConn <- file(log_nm, "r+")
   Lines <- readLines(fConn)
-  writeLines(c(paste(npass, "/", nscen,
-                     "scenarios passed all tests\n"), Lines), con = fConn)
+  writeLines(c(paste("Summary of results by scenario and yaml file:\n----------------------------------------------\n",
+                     npass, "/", nscen, "scenarios passed all tests\n",
+                     nerrors, "/", nscen, "scenarios produced errors\n----------------------------------------------\n"),
+               Lines), con = fConn)
   close(fConn)
 }

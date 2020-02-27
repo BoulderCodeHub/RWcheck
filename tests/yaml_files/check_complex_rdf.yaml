@@ -2,15 +2,18 @@
 rules:
 -
   expr: Mead.PoolElevation > 0
-  name: Mead.PoolElevation
-  label: Mead PE
-  description: |
-    Mead PE should never be NA
+  name: Mead.Pool Elevation
   in_file: ReservoirOutput.csv
 -
-  expr: '!isNA(SummaryOutputData.EqualizationAbove823)'
+  expr: '!is.na(SummaryOutputData.EqualizationAbove823)'
   name: EqualizationAbove823
   label: Equalization Above 823
   description: |
-    Equalization ABove 823 should never be NA
+    Equalization Above 823 should never be NA
+  in_file: UBRes.rdf
+-
+  expr: '!is.na(Powell.Outflow)'
+  name: Powell.Outflow
+  description: |
+    Powell Outflow should never be NA
   in_file: UBRes.rdf

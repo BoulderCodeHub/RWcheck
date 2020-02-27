@@ -33,7 +33,7 @@ rules:
     Mead PE should never be NA
   in_file: ReservoirOutput.csv
 -
-  expr: '!isNA(SummaryOutputData.EqualizationAbove823)'
+  expr: '!is.na(SummaryOutputData.EqualizationAbove823)'
   name: EqualizationAbove823
   label: Equalization Above 823
   description: |

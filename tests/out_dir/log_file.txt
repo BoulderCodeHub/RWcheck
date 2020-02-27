@@ -1,10 +1,20 @@
-0 / 2 scenarios passed all tests
+Summary of results by scenario and yaml file:
+----------------------------------------------
+ 18 / 22 scenarios passed all tests
+ 2 / 22 scenarios produced errors
+----------------------------------------------
 
 Scenario - RS_scenario1
-  ... all passes in check_lb_res.yaml
-  ... fails in check_ub_outflow.yaml
-  ***      MorrowPoint.Outflow failed in 64 timesteps      ***
+  check_complex_rdf.yaml ... resulted in 2 / 3 passes
+    ***   Fail: Powell.Outflow failed in 9408 timesteps
+    ***   Error: object 'SummaryOutputData.EqualizationAbove823' not found
+  check_lb_res.yaml ... all passes
+  check_ub_outflow.yaml ... resulted in 1 / 2 passes
+    ***   Fail: MorrowPoint.Outflow failed in 64 timesteps
 Scenario - RS_scenario2
-  ... all passes in check_lb_res.yaml
-  ... fails in check_ub_outflow.yaml
-  ***      MorrowPoint.Outflow failed in 64 timesteps      ***
+  check_complex_rdf.yaml ... resulted in 2 / 3 passes
+    ***   Fail: Powell.Outflow failed in 9408 timesteps
+    ***   Error: object 'SummaryOutputData.EqualizationAbove823' not found
+  check_lb_res.yaml ... all passes
+  check_ub_outflow.yaml ... resulted in 1 / 2 passes
+    ***   Fail: MorrowPoint.Outflow failed in 64 timesteps
