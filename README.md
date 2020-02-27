@@ -13,7 +13,8 @@ devtools::install_github("BoulderCodeHub/RWcheck")
 
 ## Yaml Specifications and Example
 
-The RWcheck relies on rules written in yaml files, which are interpreted by the `validate` R package. Yaml file specifications: 
+The RWcheck relies on rules written in yaml files, which are interpreted by the `validate` R package. Yaml is a human-readable programming language that can be used for defining a nested file structure. Yaml file specifications: 
+* When defining rules, you must first add `rules:`, followed by a new line with a dash. Each rule starts with a dash. Indentations must be two spaces, not tabs.
 * The rules must contain inputs for `expr`, `name` and `in_file`, but can contain other information (see example below). 
 * The `expr` line must contain a logical expression. If a logical expression begins with `!`, it must be surrounded in quotes. 
 * If the RiverWare slot contains spaces in the `Object.Slot`, they need to be removed in the `expr` logic. This doesn't need to be done in the `name`. 
@@ -21,9 +22,9 @@ The RWcheck relies on rules written in yaml files, which are interpreted by the 
 
 Below is an example of a yaml file that would check if slots are greater than zero or if they are `NA`.
 
-`check_RWslots_ex.yaml`:
 
 ```
+# Example yaml rules - saved as "check_RWslots_ex.yaml"
 rules:
 -
   expr: Mead.Outflow >= 0
