@@ -14,13 +14,13 @@ devtools::install_github("BoulderCodeHub/RWcheck")
 ## Yaml Specifications and Example
 
 The RWcheck relies on rules written in yaml files, which are interpreted by the `validate` R package. Yaml file specifications: 
-* The rules must contain inputs for `expr`, `name` and `in_file`. 
+* The rules must contain inputs for `expr`, `name` and `in_file`, but can contain other information (see example below). 
+* The `expr` line must contain a logical expression. If a logical expression begins with `!`, it must be surrounded in quotes. 
+* If the RiverWare slot contains spaces in the `Object.Slot`, they need to be removed in the `expr` logic. This doesn't need to be done in the `name` line. 
 * The yaml rules check slots in the `in_file`, which can be an `.rdf` or `.csv` file. 
-* The `expr` line must contain a logical expression. 
-* If the RiverWare slot contains spaces in the `Object.Slot` name, they need to be removed. 
-* If a logical expression begins with `!`, it must be surrounded in quotes. 
 
 Below is an example of a yaml file that would check if slots are greater than zero or if they are `NA`.
+
 `check_RWslots_ex.yaml`
 
 ```
