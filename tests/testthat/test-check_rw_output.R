@@ -3,7 +3,7 @@ context("check that check_rw_output() works as intended")
 # Set up function inputs
 base_dir <- dirname(getwd())
 scenario_dir <- file.path(base_dir, "Scenarios")
-output_dir <- file.path(base_dir, "out_dir")
+output_dir <- tempdir()
 yaml_dir <- file.path(base_dir, "yaml_files")
 scenarios <- c("RS_scenario1", "RS_scenario2")
 
