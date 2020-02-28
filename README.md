@@ -1,5 +1,10 @@
 RWcheck
 =================
+<!-- badges: start -->
+[![R build status](https://github.com/BoulderCodeHub/RWcheck/workflows/R-CMD-check/badge.svg)](https://github.com/BoulderCodeHub/RWcheck/actions)
+[![Codecov test coverage](https://codecov.io/gh/BoulderCodeHub/RWcheck/branch/master/graph/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWcheck?branch=master)
+<!-- badges: end -->
+
 The RWcheck package is used to check RiverWare simulation output with rules written in yaml files.
 
 ## Installation
