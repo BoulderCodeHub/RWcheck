@@ -114,7 +114,7 @@ check_rw_output <- function(scenarios,
   }
 
   # write output to text file
-  utils::write.table(out_summ, paste0(output_dir, "\\", out_fl_nm, ".txt"),
+  utils::write.table(out_summ, file.path(output_dir, paste0(out_fl_nm, ".txt")),
               sep = "\t", row.names = FALSE)
 
   # add summary to beginning of log file

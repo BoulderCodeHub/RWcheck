@@ -10,6 +10,14 @@ Provides a basic check of RiverWare model results. It allow
     users to check the output of various slots with logic, which outputs 
     an error when it fails.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/BoulderCodeHub/RWcheck}
+  \item Report bugs at \url{https://github.com/BoulderCodeHub/RWcheck/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Sarah Baker \email{sabaker@usbr.gov}
 
