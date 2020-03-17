@@ -4,7 +4,6 @@ context("check that check_rw_output() works as intended")
 base_dir <- dirname(getwd())
 scenario_dir <- file.path(base_dir, "Scenarios")
 output_dir <- tempdir()
-print(paste("\nOUTPUT: ", output_dir))
 yaml_dir <- file.path(base_dir, "yaml_files")
 scenarios <- c("RS_scenario1", "RS_scenario2")
 
@@ -17,7 +16,6 @@ test_that("Check function runs correctly with CRSS output", {
                   scenario_dir,
                   output_dir,
                   yaml_dir)
-  print(paste("\n",list.files(tempdir()), "\n"))
   expect_true(file.exists(file.path(output_dir, "verification_output.txt")))
   # read log file and check
   log_nm <- file.path(output_dir, "log_file.txt")
