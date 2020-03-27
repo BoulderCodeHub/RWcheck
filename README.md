@@ -53,24 +53,3 @@ rules:
     Equalization ABove 823 should never be NA
   in_file: UBRes.rdf
 ```
-
-## Notes
-
-Code relies on [RWDataPlyr](https://github.com/BoulderCodeHub/RWDataPlyr)
-and the following packages available on CRAN:
-* devtools
-* dplyr
-* validate
-* tools
-* yaml
-* tidyr
-* utils
-* stringr
-
-Ensure the above packages are installed on the computer. RWDataPlyr can be installed as follows:
-```
-library(devtools)
-devtools::install_github('BoulderCodeHub/RWDataPlyr')
-```
-
-
