@@ -11,9 +11,9 @@ test_that("error occurs if not csv or rdf files", {
 })
 
 test_that("check colnames and number", {
-  expect_length(df_rdf, 84)
+  expect_length(df_rdf, 4)
   expect_true(any(colnames(df_rdf) %in% c("Timestep", "TraceNumber")))
 
-  expect_length(df_csv, 62)
+  expect_length(df_csv, 4)
   expect_true(any(colnames(df_csv) %in% c("Timestep", "TraceNumber")))
 })
