@@ -62,8 +62,8 @@ check_rw_output <- function(scenarios,
   # loop through scenarios and process with yaml rules
   out_summ <- summ_err <- NULL
   for (scenario_i in scenarios) {
-    log_fl_towrite = paste(log_fl_towrite,
-                           paste("Scenario -", scenario_i), sep = "\n")
+    log_fl_towrite = c(log_fl_towrite,
+                           paste("\nScenario -", scenario_i))
 
     # read and append all data_files based on file type
     data_files_path <- file.path(scenario_dir, scenario_i, data_files)
@@ -85,25 +85,25 @@ check_rw_output <- function(scenarios,
         n_passOnly <- seq(nrow(vv_sum))[-n_fail]
 
         log_fl_towrite =
-          paste(log_fl_towrite,
+          c(log_fl_towrite,
                 paste(" ", yaml_i, "... resulted in", length(n_passOnly),
-                      "/", nrow(vv_sum), "passes"), sep = "\n")
+                      "/", nrow(vv_sum), "passes"))
         log_fl_towrite =
-          paste(log_fl_towrite,
+          c(log_fl_towrite,
                 paste("    ***   Fail:", vv_sum[n_fail, 1], "failed in",
-                      vv_sum[n_fail, 4], "timesteps"), sep = "\n")
+                      vv_sum[n_fail, 4], "timesteps"))
 
       } else {
-        log_fl_towrite = paste(log_fl_towrite,
-                               paste(" ", yaml_i, "... all passes"), sep = "\n")
+        log_fl_towrite = c(log_fl_towrite,
+                               paste(" ", yaml_i, "... all passes"))
       }
 
       # print error
       if (length(validate::errors(vv)) > 0) {
 
-        log_fl_towrite = paste(
+        log_fl_towrite = c(
           log_fl_towrite,
-          paste("    ***   Error:", unlist(validate::errors(vv))), sep = "\n")
+          paste("    ***   Error:", unlist(validate::errors(vv))))
       }
 
       # collect summary of rule output
@@ -124,10 +124,10 @@ check_rw_output <- function(scenarios,
   npass <- nscen - nfails
 
   log_fl_towrite =
-    paste(paste("Summary of results by scenario and yaml file:\n----------------------------------------------\n",
+    c(paste("Summary of results by scenario and yaml file:\n----------------------------------------------\n",
                 npass, "/", nscen, "scenarios passed all tests\n",
                 nfails, "/", nscen, "scenarios failed tests\n----------------------------------------------"),
-          log_fl_towrite, sep = "\n")
+          log_fl_towrite) #, sep = "\n", collapse = T)
 
   # open and write to log file
   log_fl <- file(log_nm, open = "w")
