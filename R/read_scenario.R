@@ -39,7 +39,6 @@ read_scenario <- function(data_files) {
 
   # keep distinct rows, select important columns and spread data
   df <- dplyr::distinct(df)
-  df <- tidyr::spread(df, ObjectSlot, Value)
 
   return(df)
 }
