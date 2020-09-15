@@ -17,16 +17,17 @@ test_that("Check function runs correctly with CRSS output", {
                   output_dir,
                   yaml_dir)
   expect_true(file.exists(file.path(output_dir, "verification_output.txt")))
+
   # read log file and check
   log_nm <- file.path(output_dir, "log_file.txt")
   fConn <- file(log_nm, "r")
   log_lines <- readLines(fConn)
   close(fConn)
 
-  # first line of log file contains summary of passes/fails
+  # line of log file contains summary of passes/fails
   expect_equal(grep("scenarios passed all tests", log_lines), 3)
-  # check that errors were produced
-  expect_length(grep("Error", log_lines), 0)
+  # check that no fails were produced
+  expect_length(grep("failed", log_lines), 1)
 
   # read verification output file
   summ <- read.table(file.path(output_dir, "verification_output.txt"),
@@ -56,7 +57,7 @@ test_that("Check function runs correctly with MTOM output", {
   # check that errors were produced
   expect_length(grep("Error", log_lines), 2)
   # check length of log file
-  expect_length(log_lines, 18)
+  expect_length(log_lines, 17)
 
   # read verification output file
   summ <- read.table(file.path(output_dir, "verification_output.txt"),
