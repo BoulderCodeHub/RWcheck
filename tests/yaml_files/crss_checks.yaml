@@ -21,3 +21,7 @@ rules:
   description: |
     Equalization Above 823 should never be NA
   in_file: SystemConditions.rdf
+- 
+  expr: UBFlowMassBalance.Inflow < 10
+  name: UB flow mass balance
+  in_file: MassBalance.rdf

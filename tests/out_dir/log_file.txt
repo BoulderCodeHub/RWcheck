@@ -1,18 +1,8 @@
 Summary of results by scenario and yaml file:
 ----------------------------------------------
- 6 / 10 scenarios passed all tests
- 2 / 10 scenarios produced errors
+ 1 / 1 scenarios passed all tests
+ 0 / 1 scenarios failed tests
 ----------------------------------------------
 
-Scenario - RS_scenario1
-  check_complex.yaml ... resulted in 2 / 3 passes
-    ***   Fail: Mead.Pool Elevation failed in 51 timesteps
-    ***   Error: object 'SummaryOutputData.EqualizationAbove823' not found
-  check_lb_res.yaml ... resulted in 1 / 2 passes
-    ***   Fail: Mohave.Storage failed in 210 timesteps
-Scenario - RS_scenario2
-  check_complex.yaml ... resulted in 2 / 3 passes
-    ***   Fail: Mead.Pool Elevation failed in 51 timesteps
-    ***   Error: object 'SummaryOutputData.EqualizationAbove823' not found
-  check_lb_res.yaml ... resulted in 1 / 2 passes
-    ***   Fail: Mohave.Storage failed in 210 timesteps
+Scenario - CRSS_1
+  crss_checks.yaml ... all passes

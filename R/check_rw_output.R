@@ -75,15 +75,16 @@ check_rw_output <- function(scenarios,
 
       # process yaml rule with scenario output
       rules_j <- validate::validator(.file = yaml_path_i)
-      
+
       # process rules individually so extra timesteps are not added
       vv_sum <- NULL
       for (rule_n in 1:length(rules_j)) {
         slot_j <- validate::variables(rules_j[rule_n])
-        
+
         df_n <- dplyr::filter(df, ObjectSlot == slot_j)
-        df_n <- tidyr::spread(df_n, ObjectSlot, Value)
-        
+        df_n <- dplyr::select(df_n, -ObjectSlot)
+        colnames(df_n)[3] <- slot_j
+
         vv <- validate::confront(as.data.frame(df_n), rules_j[rule_n])
         vv_sum_n <- validate::summary(vv)
         vv_sum <- rbind.data.frame(vv_sum, vv_sum_n)

@@ -54,8 +54,8 @@ test_that("Check function runs correctly with MTOM output", {
   log_lines <- readLines(fConn)
   close(fConn)
 
-  # check that errors were produced
-  expect_length(grep("Error", log_lines), 2)
+  # check that fails were produced
+  expect_length(grep("Fail", log_lines), 4)
   # check length of log file
   expect_length(log_lines, 17)
 
