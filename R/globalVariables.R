@@ -5,4 +5,6 @@ if(getRversion() >= "2.15.1"){
   from_createSysCondTable <- c('name','passes', 'fails', 'error', 'write.table',
                                'Timestep', 'TraceNumber', 'ObjectSlot', 'Value')
   utils::globalVariables(c(from_createSysCondTable, "."))
+
+  utils::globalVariables(c("month"))
 }

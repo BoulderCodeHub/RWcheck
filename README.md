@@ -25,6 +25,7 @@ The RWcheck relies on rules written in yaml files, which are interpreted by the 
 * The `expr` line must contain a logical expression. If a logical expression begins with `!`, it must be surrounded in quotes. 
 * If the RiverWare slot contains spaces in the `Object.Slot`, they need to be removed in the `expr` logic. This doesn't need to be done in the `name`. 
 * The yaml rules check slots in the `in_file`, which can be an `.rdf` or `.csv` file. 
+* The rules may contain an argument `month`, which specifies month(s) to run the test. The months must be input as numbers, e.g. `[1, 2, 3]`. This is an optional input.
 
 Below is an example of a yaml file that would check if slots are greater than zero or if they are `NA`.
 
@@ -48,11 +49,13 @@ rules:
   in_file: ReservoirOutput.csv
 -
   expr: '!is.na(SummaryOutputData.EqualizationAbove823)'
+  month: [12]
   name: EqualizationAbove823
   label: Equalization Above 823
   description: |
     Equalization ABove 823 should never be NA
   in_file: UBRes.rdf
+  
 ```
 
 After creating a yaml file with as many rules as you need to verify the model ran correctly, perform the tests by using `check_rw_output()`. The arguments to this function specify the scenarios that will be checked, the top level directory of the scenarios, the yaml file and its location, as well as the desired location of the output which is saved in log/text files.
