@@ -76,6 +76,9 @@ check_rw_output <- function(scenarios,
       # process yaml rule with scenario output
       rules_j <- validate::validator(.file = yaml_path_i)
 
+      # get months if specified
+      months_j <- get_months(yaml_path_i)
+
       # process rules individually so extra timesteps are not added
       vv_sum <- NULL
       for (rule_n in seq_len(length(rules_j))) {
@@ -84,6 +87,20 @@ check_rw_output <- function(scenarios,
         df_n <- dplyr::filter(df, ObjectSlot == slot_j)
         df_n <- dplyr::select(df_n, -ObjectSlot)
         colnames(df_n)[3] <- slot_j
+
+        # fitler by month if input
+        if ( !(anyNA(months_j[[rule_n]])) ) {
+          df_n$month = as.numeric(format(
+            as.POSIXct(df_n$Timestep, format = '%Y-%m-%d'), "%m"))
+
+          if (!(any(df_n$month %in% months_j[[rule_n]]))) {
+            warning(paste("slot", slot_j, "has no data for month(s) input:",
+                          months_j[[rule_n]]))
+          }
+
+          df_n <- dplyr::filter(df_n, month %in% months_j[[rule_n]])
+          df_n <- dplyr::select(df_n, -month)
+        }
 
         vv <- validate::confront(as.data.frame(df_n), rules_j[rule_n])
         vv_sum_n <- validate::summary(vv)
