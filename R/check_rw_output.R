@@ -78,7 +78,7 @@ check_rw_output <- function(scenarios,
 
       # process rules individually so extra timesteps are not added
       vv_sum <- NULL
-      for (rule_n in 1:length(rules_j)) {
+      for (rule_n in seq_len(length(rules_j))) {
         slot_j <- validate::variables(rules_j[rule_n])
 
         df_n <- dplyr::filter(df, ObjectSlot == slot_j)
