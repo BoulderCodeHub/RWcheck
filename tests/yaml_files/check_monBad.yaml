@@ -1,0 +1,7 @@
+# CRSS checks
+rules:
+- 
+  expr: PowellOperation.PowellWYRelease > 5
+  month: [Jan]
+  name: Low Powell WY release
+  in_file: Res.rdf

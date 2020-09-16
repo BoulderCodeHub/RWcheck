@@ -25,3 +25,8 @@ rules:
   expr: UBFlowMassBalance.Inflow < 10
   name: UB flow mass balance
   in_file: MassBalance.rdf
+- 
+  expr: PowellOperation.PowellWYRelease > 5
+  month: [12]
+  name: Low Powell WY release
+  in_file: Res.rdf
