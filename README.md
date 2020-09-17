@@ -21,11 +21,12 @@ devtools::install_github("BoulderCodeHub/RWcheck")
 The RWcheck relies on rules written in yaml files, which are interpreted by the `validate` R package. Yaml is a human-readable programming language that can be used for defining a nested file structure. Yaml file specifications: 
 * When defining rules, you must first add `rules:`, followed by a new line with a dash. Each rule starts with a dash. Indentations must be two spaces, not tabs. Make sure the file does not end in a dash since the function expects there to be another rule which won't exist. 
 * The file should end with a blank newline.
-* The rules must contain inputs for `expr`, `name` and `in_file`, but can contain other information (see example below). 
-* The `expr` line must contain a logical expression. If a logical expression begins with `!`, it must be surrounded in quotes. 
-* If the RiverWare slot contains spaces in the `Object.Slot`, they need to be removed in the `expr` logic. This doesn't need to be done in the `name`. 
-* The yaml rules check slots in the `in_file`, which can be an `.rdf` or `.csv` file. 
-* The rules may contain an argument `month`, which specifies month(s) to run the test. The months must be input as numbers, e.g. `[1, 2, 3]`. This is an optional input.
+* The rules must contain inputs for `expr`, `name` and `in_file`, but can contain other information (see example below). Option inputs include `month`, `label`, `description`. Inputs for these items are specified below:
+  - `expr`: This line must contain a logical expression. If the RiverWare slot contains spaces in the `Object.Slot`, they need to be removed in the `expr` logic. If a logical expression begins with `!`, it must be surrounded in quotes.
+  - `name`: This line is used when outputting fail messaging and does not need to abide by any specific formatting. 
+  - `in_file`: The yaml rules check slots in the `in_file`, which can be an `.rdf` or `.csv` file. 
+  - `month`: The rules may contain an argument `month`, which specifies month(s) to run the test. The months must be input as numbers, e.g. `[1, 2, 3]`. This is an optional input.
+  - `label` & `description`: These inputs are not used in the package, but can be useful for documenting the purpose of rules. 
 
 Below is an example of a yaml file that would check if slots are greater than zero or if they are `NA`.
 
@@ -53,7 +54,7 @@ rules:
   name: EqualizationAbove823
   label: Equalization Above 823
   description: |
-    Equalization ABove 823 should never be NA
+    Equalization Above 823 should never be NA in December
   in_file: UBRes.rdf
   
 ```
@@ -75,7 +76,7 @@ x <- check_rw_output(
 )
 ```
 
-`check_rw_output()` creates two files: one specified by the optional `out_fl_nm` and a log_file.txt. The log file includes a summary of all pass/fails at the top and then details for each scenario. the `out_fl_nm` is a table summarizing the pass/fails for each test and each scenario. It has (number of scenarios * number of tests) rows. This information is also invisibly returned as a `data.frame`.
+`check_rw_output()` creates two files: one specified by the optional `out_fl_nm` and a log_file.txt. The log file includes a summary of all pass/fails at the top and then details for each scenario. The `out_fl_nm` is a table summarizing the pass/fails for each test and each scenario. It has (number of scenarios * number of tests) rows. This information is also invisibly returned as a `data.frame`.
 
 Example from the log file:
 

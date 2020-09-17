@@ -27,7 +27,7 @@ test_that("Check function runs correctly with CRSS output", {
   # line of log file contains summary of passes/fails
   expect_equal(grep("scenarios passed all tests", log_lines), 3)
   # check that no fails were produced
-  expect_length(grep("failed", log_lines), 1)
+  expect_length(grep("errors", log_lines), 1)
 
   # read verification output file
   summ <- read.table(file.path(output_dir, "verification_output.txt"),

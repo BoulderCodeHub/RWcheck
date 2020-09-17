@@ -1,8 +1,9 @@
 Summary of results by scenario and yaml file:
 ----------------------------------------------
- 1 / 1 scenarios passed all tests
- 0 / 1 scenarios failed tests
+ 0 / 1 scenarios passed all tests
+ 1 / 1 scenarios failed tests
 ----------------------------------------------
 
 Scenario - CRSS_1
-  crss_checks.yaml ... all passes
+  crss_checks.yaml ... resulted in 4 / 5 passes
+    ***   Fail: UB flow mass balance failed in 46128 timesteps

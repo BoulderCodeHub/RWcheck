@@ -2,3 +2,5 @@
 "CRSS_1"	"crss_checks.yaml"	"Mead.Outflow"	11532	0	FALSE	FALSE	"(Mead.Outflow - 0) >= -1e-08"
 "CRSS_1"	"crss_checks.yaml"	"Mead.Pool Elevation"	11532	0	FALSE	FALSE	"Mead.PoolElevation > 0"
 "CRSS_1"	"crss_checks.yaml"	"EqualizationAbove823"	961	0	FALSE	FALSE	"!is.na(SummaryOutputData.EqualizationAbove823)"
+"CRSS_1"	"crss_checks.yaml"	"UB flow mass balance"	0	46128	FALSE	FALSE	"UBFlowMassBalance.Inflow < 10"
+"CRSS_1"	"crss_checks.yaml"	"Low Powell WY release"	961	0	FALSE	FALSE	"PowellOperation.PowellWYRelease > 5"

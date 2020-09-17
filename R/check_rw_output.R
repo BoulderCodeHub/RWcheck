@@ -43,11 +43,11 @@
 
 ## -- Function
 check_rw_output <- function(scenarios,
-                        yaml_rule_files,
-                        scenario_dir,
-                        output_dir,
-                        yaml_dir,
-                        out_fl_nm = "verification_output") {
+                            yaml_rule_files,
+                            scenario_dir,
+                            output_dir,
+                            yaml_dir,
+                            out_fl_nm = "verification_output") {
 
   # check directories exist
   dir_error(scenario_dir); dir_error(output_dir); dir_error(yaml_dir)
@@ -63,7 +63,7 @@ check_rw_output <- function(scenarios,
   out_summ <- summ_err <- NULL
   for (scenario_i in scenarios) {
     log_fl_towrite = c(log_fl_towrite,
-                           paste("\nScenario -", scenario_i))
+                       paste("\nScenario -", scenario_i))
 
     # read and append all data_files based on file type
     data_files_path <- file.path(scenario_dir, scenario_i, data_files)
@@ -71,7 +71,7 @@ check_rw_output <- function(scenarios,
 
     # loop through yaml rule files and collect summary output
     for (yaml_i in yaml_rule_files) {
-       yaml_path_i <- file.path(yaml_dir, yaml_i)
+      yaml_path_i <- file.path(yaml_dir, yaml_i)
 
       # process yaml rule with scenario output
       rules_j <- validate::validator(.file = yaml_path_i)
@@ -115,16 +115,16 @@ check_rw_output <- function(scenarios,
 
         log_fl_towrite =
           c(log_fl_towrite,
-                paste(" ", yaml_i, "... resulted in", length(n_passOnly),
-                      "/", nrow(vv_sum), "passes"))
+            paste(" ", yaml_i, "... resulted in", length(n_passOnly),
+                  "/", nrow(vv_sum), "passes"))
         log_fl_towrite =
           c(log_fl_towrite,
-                paste("    ***   Fail:", vv_sum[n_fail, 1], "failed in",
-                      vv_sum[n_fail, 4], "timesteps"))
+            paste("    ***   Fail:", vv_sum[n_fail, 1], "failed in",
+                  vv_sum[n_fail, 4], "timesteps"))
 
       } else {
         log_fl_towrite = c(log_fl_towrite,
-                               paste(" ", yaml_i, "... all passes"))
+                           paste(" ", yaml_i, "... all passes"))
       }
 
       # print error
@@ -144,19 +144,19 @@ check_rw_output <- function(scenarios,
 
   # write output to text file
   utils::write.table(out_summ, file.path(output_dir, paste0(out_fl_nm, ".txt")),
-              sep = "\t", row.names = FALSE)
+                     sep = "\t", row.names = FALSE)
 
   # add summary to beginning of log file
   nscen <- length(unique(out_summ$scenario_i))
   nfail_all <- out_summ[which(out_summ$fails > 0), ]
-  nfails <- length(unique(nfail_all$scenario_i))
-  npass <- nscen - nfails
+  npass <- nscen - length(unique(nfail_all$scenario_i))
+  nerrors <- sum(out_summ$error, na.rm = TRUE)
 
   log_fl_towrite =
     c(paste("Summary of results by scenario and yaml file:\n----------------------------------------------\n",
-                npass, "/", nscen, "scenarios passed all tests\n",
-                nfails, "/", nscen, "scenarios failed tests\n----------------------------------------------"),
-          log_fl_towrite) #, sep = "\n", collapse = T)
+            npass, "/", nscen, "scenarios passed all tests\n",
+            nerrors, "/", nscen, "scenarios produced errors\n----------------------------------------------"),
+      log_fl_towrite) #, sep = "\n", collapse = T)
 
   # open and write to log file
   log_fl <- file(log_nm, open = "w")
