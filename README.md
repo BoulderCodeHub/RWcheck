@@ -102,12 +102,12 @@ RWcheck is designed to be integrated with RiverSMART to quickly and semi-automat
 3. Create a "Scenario Set" with all of the scenarios that need the tests run on them
 4. Create an R file that includes a function that calls `check_rw_output()`. This function can be as simple as a function that essentially passes the same arguments on to `check_rw_output()` (see below).
 5. Configure the R event to pass in the required arguments. Many can be "pre-specified", as this is information RiverSMART knows. Particularly, the scenarios argument. 
-  - If any paths are "hard coded", they need to use `/` or escape the back slashes `\\`. 
+    - If any paths are "hard coded", they need to use `/` or escape the back slashes `\\`. 
 6. Configure the R event to process by "Scenario Set"
 7. Run the R event: Scenarios -> Process R Events -> "R Event Name"
 8. Wait...
 9. The output and log file will be saved to $[MODEL_DIR]/ScenarioSet/[Scenario Set Name]/[R Event Name]
-  - There is also a RiverSMART based log file saved at $[MODEL_DIR]/Working/[R Event Name]/[Scenario Set Name], which can be useful for determining if the function call(s) worked properly.
+    - There is also a RiverSMART based log file saved at $[MODEL_DIR]/Working/[R Event Name]/[Scenario Set Name], which can be useful for determining if the function call(s) worked properly.
   
 ```{r}
 library(RWcheck)
