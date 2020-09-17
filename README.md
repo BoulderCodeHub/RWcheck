@@ -62,14 +62,15 @@ rules:
 After creating a yaml file with as many rules as you need to verify the model ran correctly, perform the tests by using `check_rw_output()`. The arguments to this function specify the scenarios that will be checked, the top level directory of the scenarios, the yaml file and its location, as well as the desired location of the output which is saved in log/text files.
 
 ```{r}
-scenarios <- c("MRM_Avg,ModelBase,RulesBase,Run-2019-10",
-  "MRM_Avg,ModelBase,RulesBase,Run-2019-11")
-# assuming the previous example is stored as check_lb_res.yaml and there is an
+# Assuming the previous example is stored as check_lb_res.yaml and there is an
 # additional file called check_ub_outputlow.yaml
+
+scenarios       <- c("MRM_Avg,ModelBase,RulesBase,Run-2019-10",
+                     "MRM_Avg,ModelBase,RulesBase,Run-2019-11")
 yaml_rule_files <- c("check_lb_res.yaml", "check_ub_outflow.yaml")
-scenario_dir <- "C:/User/Project/Scenario/"
-output_dir <- "C:/User/Project/ScenarioSet/allScenarios/basicChecks"
-yaml_dir <- "C:/User/Project/Code/"
+scenario_dir    <- "C:/User/Project/Scenario/"
+output_dir      <- "C:/User/Project/ScenarioSet/allScenarios/basicChecks"
+yaml_dir        <- "C:/User/Project/Code/"
 
 x <- check_rw_output(
   scenarios, yaml_rule_files, scenario_dir, output_dir, yaml_dir
