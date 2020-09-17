@@ -2,7 +2,7 @@
 #'
 #' Checks if directory exists and errors if it doesnt.
 #'
-#' @param dir_check Directory.
+#' @param dir_check Full path of directory.
 #' @return Error if directory does not exist.
 #' @examples
 #' \dontrun{

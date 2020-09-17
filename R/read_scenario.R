@@ -37,9 +37,8 @@ read_scenario <- function(data_files) {
   # remove spaces ObjectSlot names
   df$ObjectSlot <- stringr::str_replace_all(df$ObjectSlot, pattern=" ", repl="")
 
-  # keep distinct rows, select important columns and spread data
+  # keep distinct rows
   df <- dplyr::distinct(df)
-  df <- tidyr::spread(df, ObjectSlot, Value)
 
   return(df)
 }

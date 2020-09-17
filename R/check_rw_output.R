@@ -43,11 +43,11 @@
 
 ## -- Function
 check_rw_output <- function(scenarios,
-                        yaml_rule_files,
-                        scenario_dir,
-                        output_dir,
-                        yaml_dir,
-                        out_fl_nm = "verification_output") {
+                            yaml_rule_files,
+                            scenario_dir,
+                            output_dir,
+                            yaml_dir,
+                            out_fl_nm = "verification_output") {
 
   # check directories exist
   dir_error(scenario_dir); dir_error(output_dir); dir_error(yaml_dir)
@@ -62,8 +62,8 @@ check_rw_output <- function(scenarios,
   # loop through scenarios and process with yaml rules
   out_summ <- summ_err <- NULL
   for (scenario_i in scenarios) {
-    log_fl_towrite = paste(log_fl_towrite,
-                           paste("Scenario -", scenario_i), sep = "\n")
+    log_fl_towrite = c(log_fl_towrite,
+                       paste("\nScenario -", scenario_i))
 
     # read and append all data_files based on file type
     data_files_path <- file.path(scenario_dir, scenario_i, data_files)
@@ -71,12 +71,41 @@ check_rw_output <- function(scenarios,
 
     # loop through yaml rule files and collect summary output
     for (yaml_i in yaml_rule_files) {
-       yaml_path_i <- file.path(yaml_dir, yaml_i)
+      yaml_path_i <- file.path(yaml_dir, yaml_i)
 
       # process yaml rule with scenario output
       rules_j <- validate::validator(.file = yaml_path_i)
-      vv <- validate::confront(as.data.frame(df), rules_j)
-      vv_sum <- validate::summary(vv)
+
+      # get months if specified
+      months_j <- get_months(yaml_path_i)
+
+      # process rules individually so extra timesteps are not added
+      vv_sum <- NULL
+      for (rule_n in seq_len(length(rules_j))) {
+        slot_j <- validate::variables(rules_j[rule_n])
+
+        df_n <- dplyr::filter(df, ObjectSlot == slot_j)
+        df_n <- dplyr::select(df_n, -ObjectSlot)
+        colnames(df_n)[3] <- slot_j
+
+        # fitler by month if input
+        if ( !(anyNA(months_j[[rule_n]])) ) {
+          df_n$month = as.numeric(format(
+            as.POSIXct(df_n$Timestep, format = '%Y-%m-%d'), "%m"))
+
+          if (!(any(df_n$month %in% months_j[[rule_n]]))) {
+            warning(paste("slot", slot_j, "has no data for month(s) input:",
+                          months_j[[rule_n]]))
+          }
+
+          df_n <- dplyr::filter(df_n, month %in% months_j[[rule_n]])
+          df_n <- dplyr::select(df_n, -month)
+        }
+
+        vv <- validate::confront(as.data.frame(df_n), rules_j[rule_n])
+        vv_sum_n <- validate::summary(vv)
+        vv_sum <- rbind.data.frame(vv_sum, vv_sum_n)
+      }
 
       # print fails or passes
       if (max(vv_sum$fails) > 0) {
@@ -85,25 +114,25 @@ check_rw_output <- function(scenarios,
         n_passOnly <- seq(nrow(vv_sum))[-n_fail]
 
         log_fl_towrite =
-          paste(log_fl_towrite,
-                paste(" ", yaml_i, "... resulted in", length(n_passOnly),
-                      "/", nrow(vv_sum), "passes"), sep = "\n")
+          c(log_fl_towrite,
+            paste(" ", yaml_i, "... resulted in", length(n_passOnly),
+                  "/", nrow(vv_sum), "passes"))
         log_fl_towrite =
-          paste(log_fl_towrite,
-                paste("    ***   Fail:", vv_sum[n_fail, 1], "failed in",
-                      vv_sum[n_fail, 4], "timesteps"), sep = "\n")
+          c(log_fl_towrite,
+            paste("    ***   Fail:", vv_sum[n_fail, 1], "failed in",
+                  vv_sum[n_fail, 4], "timesteps"))
 
       } else {
-        log_fl_towrite = paste(log_fl_towrite,
-                               paste(" ", yaml_i, "... all passes"), sep = "\n")
+        log_fl_towrite = c(log_fl_towrite,
+                           paste(" ", yaml_i, "... all passes"))
       }
 
       # print error
       if (length(validate::errors(vv)) > 0) {
 
-        log_fl_towrite = paste(
+        log_fl_towrite = c(
           log_fl_towrite,
-          paste("    ***   Error:", unlist(validate::errors(vv))), sep = "\n")
+          paste("    ***   Error:", unlist(validate::errors(vv))))
       }
 
       # collect summary of rule output
@@ -115,18 +144,19 @@ check_rw_output <- function(scenarios,
 
   # write output to text file
   utils::write.table(out_summ, file.path(output_dir, paste0(out_fl_nm, ".txt")),
-              sep = "\t", row.names = FALSE)
+                     sep = "\t", row.names = FALSE)
 
   # add summary to beginning of log file
-  nscen <- nrow(out_summ)
-  npass <- nscen - length(which(out_summ$fails > 0))
+  nscen <- length(unique(out_summ$scenario_i))
+  nfail_all <- out_summ[which(out_summ$fails > 0), ]
+  npass <- nscen - length(unique(nfail_all$scenario_i))
   nerrors <- sum(out_summ$error, na.rm = TRUE)
 
   log_fl_towrite =
-    paste(paste("Summary of results by scenario and yaml file:\n----------------------------------------------\n",
-                npass, "/", nscen, "scenarios passed all tests\n",
-                nerrors, "/", nscen, "scenarios produced errors\n----------------------------------------------"),
-          log_fl_towrite, sep = "\n")
+    c(paste("Summary of results by scenario and yaml file:\n----------------------------------------------\n",
+            npass, "/", nscen, "scenarios passed all tests\n",
+            nerrors, "/", nscen, "scenarios produced errors\n----------------------------------------------"),
+      log_fl_towrite) #, sep = "\n", collapse = T)
 
   # open and write to log file
   log_fl <- file(log_nm, open = "w")
