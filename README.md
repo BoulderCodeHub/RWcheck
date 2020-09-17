@@ -21,7 +21,7 @@ devtools::install_github("BoulderCodeHub/RWcheck")
 The RWcheck relies on rules written in yaml files, which are interpreted by the `validate` R package. Yaml is a human-readable programming language that can be used for defining a nested file structure. Yaml file specifications: 
 * When defining rules, you must first add `rules:`, followed by a new line with a dash. Each rule starts with a dash. Indentations must be two spaces, not tabs. Make sure the file does not end in a dash since the function expects there to be another rule which won't exist. 
 * The file should end with a blank newline.
-* The rules must contain inputs for `expr`, `name` and `in_file`, but can contain other information (see example below). Option inputs include `month`, `label`, `description`. Inputs for these items are specified below:
+* The rules must contain inputs for `expr`, `name` and `in_file`, but can contain other information (see example below). Optional inputs include `month`, `label`, `description`. Inputs for these items are specified below:
   - `expr`: This line must contain a logical expression. If the RiverWare slot contains spaces in the `Object.Slot`, they need to be removed in the `expr` logic. If a logical expression begins with `!`, it must be surrounded in quotes.
   - `name`: This line is used when outputting fail messaging and does not need to abide by any specific formatting. 
   - `in_file`: The yaml rules check slots in the `in_file`, which can be an `.rdf` or `.csv` file. 
@@ -102,9 +102,24 @@ RWcheck is designed to be integrated with RiverSMART to quickly and semi-automat
 3. Create a "Scenario Set" with all of the scenarios that need the tests run on them
 4. Create an R file that includes a function that calls `check_rw_output()`. This function can be as simple as a function that essentially passes the same arguments on to `check_rw_output()` (see below).
 5. Configure the R event to pass in the required arguments. Many can be "pre-specified", as this is information RiverSMART knows. Particularly, the scenarios argument. 
-  - if any paths are "hard coded", they need to use `/` or escape the back slashes `\\`. 
+  - If any paths are "hard coded", they need to use `/` or escape the back slashes `\\`. 
 6. Configure the R event to process by "Scenario Set"
 7. Run the R event: Scenarios -> Process R Events -> "R Event Name"
-8. Wait
-9. The output and log file will be saved to $CRSS_DIR/ScenarioSet/[Scenario Set Name]/[R Event Name]
-  - There is also a RiverSMART based log file saved at $CRSS_DIR/Working/[R Event Name]/[Scenario Set Name], which can be useful for determining if the function call(s) worked properly.
+8. Wait...
+9. The output and log file will be saved to $[MODEL_DIR]/ScenarioSet/[Scenario Set Name]/[R Event Name]
+  - There is also a RiverSMART based log file saved at $[MODEL_DIR]/Working/[R Event Name]/[Scenario Set Name], which can be useful for determining if the function call(s) worked properly.
+  
+```{r}
+library(RWcheck)
+
+check_mdl_output  <- function(scenarios,
+                              yaml_rule_files,
+                              scenario_dir,
+                              output_dir) {
+  
+  yaml_dir <- paste0(dirname(scenario_dir), '/Code/')
+  
+  check_mdl_output(scenarios, yaml_rule_files, scenario_dir, output_dir, 
+                   yaml_dir, out_fl_nm)
+}
+```
