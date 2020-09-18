@@ -150,12 +150,12 @@ check_rw_output <- function(scenarios,
   nscen <- length(unique(out_summ$scenario_i))
   nfail_all <- out_summ[which(out_summ$fails > 0), ]
   npass <- nscen - length(unique(nfail_all$scenario_i))
-  nerrors <- sum(out_summ$error, na.rm = TRUE)
+  n_noerrors <- nscen - sum(out_summ$error, na.rm = TRUE)
 
   log_fl_towrite =
     c(paste("Summary of results by scenario and yaml file:\n----------------------------------------------\n",
             npass, "/", nscen, "scenarios passed all tests\n",
-            nerrors, "/", nscen, "scenarios produced errors\n----------------------------------------------"),
+            n_noerrors, "/", nscen, "scenarios produced not errors\n----------------------------------------------"),
       log_fl_towrite) #, sep = "\n", collapse = T)
 
   # open and write to log file

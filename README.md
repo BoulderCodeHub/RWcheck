@@ -36,25 +36,16 @@ Below is an example of a yaml file that would check if slots are greater than ze
 rules:
 -
   expr: Mead.Outflow >= 0
-  name: Mead.Outflow
-  label: Mead Outflow
-  description: |
-    Mead Outflow should never be negative.
+  name: Mead Outflow should never be negative.
   in_file: ReservoirOutput.csv
 -
   expr: Mead.PoolElevation > 0
-  name: Mead.Pool Elevation
-  label: Mead PE
-  description: |
-    Mead PE should never be NA
+  name: Mead.Pool Elevation should be greater than zero
   in_file: ReservoirOutput.csv
 -
   expr: '!is.na(SummaryOutputData.EqualizationAbove823)'
   month: [12]
-  name: EqualizationAbove823
-  label: Equalization Above 823
-  description: |
-    Equalization Above 823 should never be NA in December
+  name: EqualizationAbove823should never be NA in December
   in_file: UBRes.rdf
   
 ```
